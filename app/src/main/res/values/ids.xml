@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="imgProduct" type="id" />
+    <item name="tvProductName" type="id" />
+    <item name="tvProductPrice" type="id" />
+    <item name="tvProductStock" type="id" />
+    <item name="tvProductDescription" type="id" />
+    <item name="btnBack" type="id" />
+</resources>
