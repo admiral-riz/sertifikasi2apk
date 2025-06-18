@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.rizqi_elektronik"
+    namespace = "com.example.batik_nusantara"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.rizqi_elektronik"
+        applicationId = "com.example.batik_nusantara"
         minSdk = 27
         targetSdk = 34
         versionCode = 1

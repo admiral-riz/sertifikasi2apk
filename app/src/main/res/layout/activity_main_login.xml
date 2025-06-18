@@ -31,7 +31,9 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/logo" />
+                android:src="@drawable/logo"
+                android:background="@drawable/circle_background"
+                android:clipToOutline="true"/>
 
             <!-- DEXT TECH -->
 
@@ -120,7 +122,7 @@
                     android:text="Login"
                     android:textAllCaps="false"
                     android:textSize="16sp"
-                    app:backgroundTint="@color/primary" />
+                    app:backgroundTint="@color/logo" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnGuest"

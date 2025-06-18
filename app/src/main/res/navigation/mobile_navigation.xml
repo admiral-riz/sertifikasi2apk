@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.rizqi_elektronik.ui.home.HomeFragment"
+        android:name="com.example.batik_nusantara.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_product"
-        android:name="com.example.rizqi_elektronik.ui.product.ProductFragment"
+        android:name="com.example.batik_nusantara.ui.product.ProductFragment"
         android:label="@string/title_product"
         tools:layout="@layout/fragment_product" />
 
     <fragment
         android:id="@+id/navigation_order"
-        android:name="com.example.rizqi_elektronik.ui.order.OrderFragment"
+        android:name="com.example.batik_nusantara.ui.order.OrderFragment"
         android:label="@string/title_order"
         tools:layout="@layout/fragment_order" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.rizqi_elektronik.ui.profile.ProfileFragment"
+        android:name="com.example.batik_nusantara.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

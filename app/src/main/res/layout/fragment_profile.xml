@@ -54,15 +54,14 @@
     <!-- Tombol Edit Profil -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnEditProfile"
+        style="@style/Widget.Material3.Button.IconButton.Filled"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        app:backgroundTint="@color/primary"
         android:text="Edit profile"
         android:textAllCaps="true"
-        android:textSize="16sp"
         android:textColor="#FFFFFF"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvEmail" />
@@ -70,15 +69,14 @@
     <!-- Tombol Kontak Kami -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnContactUs"
+        style="@style/Widget.Material3.Button.IconButton.Filled"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        app:backgroundTint="@color/primary"
         android:text="Kontak Kami"
         android:textAllCaps="true"
-        android:textSize="16sp"
         android:textColor="#FFFFFF"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnEditProfile" />

@@ -32,7 +32,9 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/logo" />
+                android:src="@drawable/logo"
+                android:background="@drawable/circle_background"
+                android:clipToOutline="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -150,7 +152,7 @@
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
-                    app:backgroundTint="@color/primary"
+                    app:backgroundTint="@color/logo"
                     app:cornerRadius="12dp" />
 
                 <LinearLayout

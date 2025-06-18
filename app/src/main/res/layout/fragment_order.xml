@@ -47,7 +47,7 @@
             android:id="@+id/btnCheckout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:backgroundTint="@color/primary"
+            android:backgroundTint="@color/logo"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="Checkout"
