@@ -2,9 +2,12 @@ package com.example.batik_nusantara.ui.profile;
 
 import static com.example.batik_nusantara.ServerAPI.BASE_URL_Image;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -25,6 +29,8 @@ import com.example.batik_nusantara.R;
 import com.example.batik_nusantara.RegisterAPI;
 import com.example.batik_nusantara.ServerAPI;
 import com.example.batik_nusantara.databinding.FragmentProfileBinding;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONObject;
 
@@ -40,14 +46,15 @@ public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     private RegisterAPI registerAPI;
     private TextView tvUsername, tvEmail;
+    private FusedLocationProviderClient fusedLocationClient;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE);
         String nama = sharedPreferences.getString("nama", null);
 
-        // Jika belum login (nama kosong atau null)
         if (nama == null || nama.isEmpty()) {
             new AlertDialog.Builder(requireContext())
                     .setTitle("Peringatan")
@@ -97,6 +104,10 @@ public class ProfileFragment extends Fragment {
                     .show();
         });
 
+        // Inisialisasi lokasi
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+        getLastKnownLocation(); // panggil untuk ambil lokasi
+
         return root;
     }
 
@@ -142,14 +153,47 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updateUI(String nama, String email, String foto) {
-        binding.tvUsername.setText(nama);
-        binding.tvEmail.setText(email);
+        binding.tvUsername.setText("\uD83D\uDC4B" + nama);
+        binding.tvEmail.setText("Anda login sebagai : " + email);
         Glide.with(requireContext())
                 .load(BASE_URL_Image + "avatar/" + foto)
                 .centerCrop()
                 .placeholder(R.drawable.ic_profile_black_24dp)
                 .error(R.drawable.ic_profile_black_24dp)
                 .into(binding.imgProfilePicture);
+    }
+
+    private void getLastKnownLocation() {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1001);
+            return;
+        }
+
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(location -> {
+                    if (location != null) {
+                        double latitude = location.getLatitude();
+                        double longitude = location.getLongitude();
+                        binding.tvLocation.setText("Lokasi Anda: " + latitude + ", " + longitude);
+                    } else {
+                        binding.tvLocation.setText("Lokasi tidak tersedia");
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    binding.tvLocation.setText("Gagal mendapatkan lokasi");
+                    e.printStackTrace();
+                });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1001 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            getLastKnownLocation();
+        } else {
+            Toast.makeText(requireContext(), "Izin lokasi ditolak", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showError(String message) {

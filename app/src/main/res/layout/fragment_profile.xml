@@ -7,7 +7,21 @@
     android:padding="24dp"
     tools:context=".ui.profile.ProfileFragment">
 
-    <!-- Foto Profil dengan Rounded Corners dan Shadow -->
+    <!-- Tulisan "Profile" di pojok kiri atas -->
+    <TextView
+        android:id="@+id/tvProfileTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="PROFILE"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Foto Profil -->
     <ImageView
         android:id="@+id/imgProfilePicture"
         android:layout_width="100dp"
@@ -20,12 +34,12 @@
         android:scaleType="centerCrop"
         android:background="@drawable/circle_border"
         android:elevation="4dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvProfileTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:clipToOutline="true"/>
+        android:clipToOutline="true" />
 
-    <!-- Nama Pengguna dengan Font Modern -->
+    <!-- Nama Pengguna -->
     <TextView
         android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
@@ -51,6 +65,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Lokasi Pengguna -->
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lokasi Anda:"
+        android:textSize="16sp"
+        android:textColor="#777777"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <!-- Tombol Edit Profil -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnEditProfile"
@@ -64,9 +91,9 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvEmail" />
+        app:layout_constraintTop_toBottomOf="@id/tvLocation" />
 
-    <!-- Tombol Kontak Kami -->
+    <!-- Tombol Order History -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnOrderHistory"
         style="@style/Widget.Material3.Button.IconButton.Filled"
