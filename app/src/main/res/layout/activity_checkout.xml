@@ -89,6 +89,20 @@
                   android:textColor="#212121"
                   tools:text="-----"/>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="8dp">
+              <TextView
+                  android:id="@+id/tvkodepos"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:textSize="14sp"
+                  android:textColor="#212121"
+                  tools:text="12345"/>
+            </LinearLayout>
           </LinearLayout>
 
           <LinearLayout
@@ -111,20 +125,6 @@
                   tools:text="Jl. Contoh No. 123, Desa ABC, Kec. XYZ"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_marginStart="8dp">
-              <TextView
-                  android:id="@+id/tvkodepos"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:textSize="14sp"
-                  android:textColor="#212121"
-                  tools:text="12345"/>
-            </LinearLayout>
           </LinearLayout>
         </LinearLayout>
       </androidx.cardview.widget.CardView>
@@ -235,7 +235,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginTop="16dp"
-              android:backgroundTint="@color/logo"
+              android:backgroundTint="@color/primary"
               android:insetLeft="0dp"
               android:insetTop="0dp"
               android:insetRight="0dp"
@@ -262,7 +262,7 @@
               android:layout_marginTop="8dp"
               android:layout_marginBottom="12dp"
               android:text="Estimasi Pengiriman: -"
-              android:textColor="@color/logo"
+              android:textColor="@color/primary"
               android:textSize="14sp" />
 
           <View

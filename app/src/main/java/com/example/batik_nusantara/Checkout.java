@@ -131,7 +131,7 @@ public class Checkout extends AppCompatActivity {
         });
 
         // Get order items from intent
-        String json = getIntent().getStringExtra("orderList");
+        String json = getIntent().getStringExtra("order_items");
         if (json != null && !json.isEmpty()) {
             try {
                 orderItems = new Gson().fromJson(json, new TypeToken<List<OrderItem>>(){}.getType());
@@ -290,7 +290,7 @@ public class Checkout extends AppCompatActivity {
                             etFullName.setText(data.getString("nama"));
                             etAddress.setText(data.getString("alamat"));
                             etPhoneNumber.setText(data.getString("telp"));
-                            etKodepos.setText("(" + data.getString("kodepos") + ")");
+                            etKodepos.setText(data.getString("kodepos"));
                             Log.d("CheckoutProfile", "Data profil berhasil dimuat dari server.");
                         } else {
                             Toast.makeText(Checkout.this, "Data profil tidak ditemukan.", Toast.LENGTH_SHORT).show();
