@@ -131,10 +131,12 @@ public class Checkout extends AppCompatActivity {
         });
 
         // Get order items from intent
-        String json = getIntent().getStringExtra("order_items");
+        SharedPreferences orderPrefs = getSharedPreferences("OrderPrefs", MODE_PRIVATE);
+        String json = orderPrefs.getString("order_items", "[]");
+
         if (json != null && !json.isEmpty()) {
             try {
-                orderItems = new Gson().fromJson(json, new TypeToken<List<OrderItem>>(){}.getType());
+                orderItems = new Gson().fromJson(json, new TypeToken<List<OrderItem>>() {}.getType());
             } catch (Exception e) {
                 Log.e("Checkout", "Error parsing order list JSON: " + e.getMessage());
                 orderItems = new ArrayList<>();
@@ -144,6 +146,7 @@ public class Checkout extends AppCompatActivity {
             orderItems = new ArrayList<>();
             Toast.makeText(this, "Daftar pesanan kosong.", Toast.LENGTH_SHORT).show();
         }
+
 
         // Setup recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
