@@ -12,15 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,9 +34,7 @@ import com.example.batik_nusantara.databinding.FragmentHomeBinding;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -52,17 +46,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-
     private HomeViewModel mViewModel;
-    private TextView tvGreeting;
-    private RecyclerView rvProduk, rvBestSeller;
     private HomeProductAdapter homeProductAdapter;
     private BestSellerAdapter bestSellerAdapter;
     private RegisterAPI registerAPI;
-    private Spinner spinnerKategori;
 
     private List<Product> allProducts = new ArrayList<>();
-    private List<Product> filteredProducts = new ArrayList<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -85,30 +74,12 @@ public class HomeFragment extends Fragment {
         slideModels.add(new SlideModel(R.drawable.banner4, ScaleTypes.CENTER_CROP));
         imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
 
-        binding.rvProduk.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         homeProductAdapter = new HomeProductAdapter();
-        binding.rvProduk.setAdapter(homeProductAdapter);
-
         binding.rvBestSeller.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         bestSellerAdapter = new BestSellerAdapter();
         binding.rvBestSeller.setAdapter(bestSellerAdapter);
 
-        // Retrofit API
         registerAPI = RetrofitClientInstance.getRetrofitInstance().create(RegisterAPI.class);
-
-        // Setup listener spinner kategori
-        binding.spinnerKategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String kategori = (String) parent.getItemAtPosition(position);
-                filterProducts(kategori);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Do nothing
-            }
-        });
 
         loadAllProducts();
         loadBestSellerProducts();
@@ -151,7 +122,6 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                binding.loadingProgressBar.setVisibility(View.GONE);
                 showError("Koneksi gagal: " + t.getMessage());
             }
         });
@@ -168,7 +138,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void showError(String message) {
-        if (isAdded()) { // Check if the fragment is attached to an activity
+        if (isAdded()) {
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
         } else {
             Log.e("ProfileFragment", "Fragment not attached to context. Error: " + message);
@@ -182,26 +152,7 @@ public class HomeFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     allProducts.clear();
                     allProducts.addAll(response.body());
-
-                    // Setup kategori Spinner
-                    Set<String> kategoriSet = new HashSet<>();
-                    for (Product p : allProducts) {
-                        if (p.getKategori() != null) {
-                            kategoriSet.add(p.getKategori());
-                        }
-                    }
-
-                    List<String> kategoriList = new ArrayList<>();
-                    kategoriList.add("Semua");
-                    kategoriList.addAll(kategoriSet);
-
-                    ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, kategoriList);
-                    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.spinnerKategori.setAdapter(spinnerAdapter);
-
-                    // Default tampilkan semua produk
-                    filterProducts("Semua");
-
+                    homeProductAdapter.setProductList(allProducts);
                 } else {
                     Toast.makeText(getContext(), "Gagal memuat produk", Toast.LENGTH_SHORT).show();
                 }
@@ -230,18 +181,6 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void filterProducts(String kategori) {
-        filteredProducts.clear();
-        for (Product p : allProducts) {
-            String kat = p.getKategori() != null ? p.getKategori() : "";
-            boolean matchKategori = kategori.equals("Semua") || kat.equalsIgnoreCase(kategori);
-            if (matchKategori) {
-                filteredProducts.add(p);
-            }
-        }
-        homeProductAdapter.setProductList(filteredProducts);
     }
 
     @Override

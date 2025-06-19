@@ -68,12 +68,12 @@
 
     <!-- Tombol Kontak Kami -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnContactUs"
+        android:id="@+id/btnOrderHistory"
         style="@style/Widget.Material3.Button.IconButton.Filled"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:text="Kontak Kami"
+        android:text="Order History"
         android:textAllCaps="true"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
@@ -95,6 +95,6 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnContactUs" />
+        app:layout_constraintTop_toBottomOf="@id/btnOrderHistory" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
-import com.example.batik_nusantara.Kontak;
 import com.example.batik_nusantara.MainLogin;
 import com.example.batik_nusantara.EditProfile;
 import com.example.batik_nusantara.R;
@@ -39,7 +38,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
-
     private RegisterAPI registerAPI;
     private TextView tvUsername, tvEmail;
 
@@ -51,13 +49,11 @@ public class ProfileFragment extends Fragment {
 
         // Jika belum login (nama kosong atau null)
         if (nama == null || nama.isEmpty()) {
-            // Tampilkan alert dialog
             new AlertDialog.Builder(requireContext())
                     .setTitle("Peringatan")
                     .setMessage("Anda harus login dulu untuk mengakses halaman ini.")
-                    .setCancelable(false) // Tidak bisa dismiss tanpa klik tombol
+                    .setCancelable(false)
                     .setPositiveButton("OK", (dialog, which) -> {
-                        // Arahkan ke halaman login dan hapus history activity
                         Intent intent = new Intent(requireActivity(), MainLogin.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
@@ -65,13 +61,11 @@ public class ProfileFragment extends Fragment {
                     })
                     .show();
 
-            // Kembalikan view kosong agar tidak lanjut render UI profil
             return new View(requireContext());
         }
 
         loadProfile();
 
-        // Jika sudah login, lanjutkan buat layout dan inisialisasi UI
         ProfileViewModel profileViewModel =
                 new ViewModelProvider(this).get(ProfileViewModel.class);
 
@@ -81,12 +75,6 @@ public class ProfileFragment extends Fragment {
         // Tombol Edit Profile
         binding.btnEditProfile.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), EditProfile.class);
-            startActivity(intent);
-        });
-
-        // Tombol Kontak Kami
-        binding.btnContactUs.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), Kontak.class);
             startActivity(intent);
         });
 
@@ -148,7 +136,6 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                binding.loadingProgressBar.setVisibility(View.GONE);
                 showError("Koneksi gagal: " + t.getMessage());
             }
         });
@@ -166,7 +153,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void showError(String message) {
-        if (isAdded()) { // Check if the fragment is attached to an activity
+        if (isAdded()) {
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
         } else {
             Log.e("ProfileFragment", "Fragment not attached to context. Error: " + message);
