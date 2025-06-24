@@ -19,10 +19,8 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        ImageView imgHurufLogo = findViewById(R.id.imgHuruflogo);
 
         Animation animDown = AnimationUtils.loadAnimation(this, R.anim.fade_in_translate_down);
-        imgHurufLogo.startAnimation(animDown);
 
         SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
         boolean isLoggedIn = sharedPreferences.contains("email");

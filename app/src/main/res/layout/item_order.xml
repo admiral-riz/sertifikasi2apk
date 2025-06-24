@@ -92,7 +92,7 @@
                     android:layout_marginLeft="5dp"
                     android:background="@android:color/transparent"
                     android:contentDescription="Decrease Quantity"
-                    android:src="@android:drawable/ic_delete"
+                    android:src="@drawable/ic_minus"
                     app:tint="#FF0000" />
             </LinearLayout>
         </LinearLayout>
